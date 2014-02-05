@@ -1,0 +1,47 @@
+HW1
+========================================================
+author: Kenneth Chen
+date: February 04, 2014
+
+First Slide
+========================================================
+
+Before running this presentation, you will need to 
+ - set the current directory in the console (go to session -> Set Working Directory -> To Source File Location)
+ - run the following commands which take up time
+    - source("http://bioconductor.org/biocLite.R")
+    - biocLite()
+    - getSQLiteFile() Note: this will take some time
+
+SQL database query
+========================================================
+
+```{r}
+library(GEOmetadb)
+geo_con <- dbConnect(SQLite(),'GEOmetadb.sqlite')
+dbGetQuery(geo_con, "SELECT gse.title, gse.gse, gpl.gpl, gpl.manufacturer, gpl.description FROM (gse JOIN gse_gpl ON gse.gse = gse_gpl.gse) j JOIN gpl ON j.gpl = gpl.gpl WHERE gse.title LIKE '%HCV%' AND gse.contact LIKE '%yale%' AND gpl.manufacturer LIKE '%Illumina%';")
+```
+
+Output should look like
+========================================================
+                                                           
+                                                          gse.title
+1 The blood transcriptional signature of chronic HCV [Illumina data]
+2                 The blood transcriptional signature of chronic HCV
+   gse.gse  gpl.gpl gpl.manufacturer
+1 GSE40223 GPL10558    Illumina Inc.
+2 GSE40224 GPL10558    Illumina Inc.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              gpl.description
+1 The HumanHT-12 v4 Expression BeadChip provides high throughput processing of 12 samples per BeadChip without the need for expensive, specialized automation. The BeadChip is designed to support flexible usage across a wide-spectrum of experiments.;\t;\tThe updated content on the HumanHT-12 v4 Expression BeadChips provides more biologically meaningful results through genome-wide transcriptional coverage of well-characterized genes, gene candidates, and splice variants.;\t;\tEach array on the HumanHT-12 v4 Expression BeadChip targets more than 31,000 annotated genes with more than 47,000 probes derived from the National Center for Biotechnology Information Reference Sequence (NCBI) RefSeq Release 38 (November 7, 2009) and other sources.;\t;\tPlease use the GEO Data Submission Report Plug-in v1.0 for Gene Expression which may be downloaded from https://icom.illumina.com/icom/software.ilmn?id=234 to format the normalized and raw data.  These should be submitted as part of a GEOarchive.  Instructions for assembling a GEOarchive may be found at http://www.ncbi.nlm.nih.gov/projects/geo/info/spreadsheet.html;\t;\tOctober 11, 2012: annotation table updated with HumanHT-12_V4_0_R2_15002873_B.txt
+2 The HumanHT-12 v4 Expression BeadChip provides high throughput processing of 12 samples per BeadChip without the need for expensive, specialized automation. The BeadChip is designed to support flexible usage across a wide-spectrum of experiments.;\t;\tThe updated content on the HumanHT-12 v4 Expression BeadChips provides more biologically meaningful results through genome-wide transcriptional coverage of well-characterized genes, gene candidates, and splice variants.;\t;\tEach array on the HumanHT-12 v4 Expression BeadChip targets more than 31,000 annotated genes with more than 47,000 probes derived from the National Center for Biotechnology Information Reference Sequence (NCBI) RefSeq Release 38 (November 7, 2009) and other sources.;\t;\tPlease use the GEO Data Submission Report Plug-in v1.0 for Gene Expression which may be downloaded from https://icom.illumina.com/icom/software.ilmn?id=234 to format the normalized and raw data.  These should be submitted as part of a GEOarchive.  Instructions for assembling a GEOarchive may be found at http://www.ncbi.nlm.nih.gov/projects/geo/info/spreadsheet.html;\t;\tOctober 11, 2012: annotation table updated with HumanHT-12_V4_0_R2_15002873_B.txt
+> 
+
+Part Two
+========================================================
+```{r}
+library(data.table)
+gseDT <- data.table(dbGetQuery(geo_con, "SELECT * FROM gse"), key = "gse")
+gse_gplDT <- data.table(dbGetQuery(geo_con, "SELECT * FROM gse_gpl;", key = "gse"))
+gplDT <- data.table(dbGetQuery(geo_con, "SELECT * FROM gpl;"), key = "gpl")
+merge(data.table((gseDT[gse_gplDT])[title %like% "HCV" & contact %like% "yale", list(title, gse, gpl)], key = "gpl"), data.table((gplDT[manufacturer %like% "Illumina", list(gpl, manufacturer, description)]), key = "gpl"), all = FALSE)
+```
