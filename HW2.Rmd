@@ -36,16 +36,16 @@ Additionally, please download and save (to the planned working directory) the GE
 
 The following code will download and save the required data. The data must be saved as an object name "dataSet" with the file name "GSE40812_getGEO" (or renamed such after) for the rest of the code to work
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 library(GEOquery) #load needed library
 dataSet = getGEO("GSE40812") #download GEO eset (as a list of esets)
-save(dataSet, file = "GSE40812_getGEO") 
+#save(dataSet, file = "GSE40812_getGEO") 
 ```
 
 Subset the expression set to data from macrophages, clean data labels, and retain only those necessary: patient ID, treatment, 
 ```{r}
 library(Biobase)
-load("GSE40812_getGEO")
+#load("GSE40812_getGEO")
 eset = dataSet[[1]]
 pd = pData(eset)
 pdMacrophage = pd[pd$source_name_ch1 == "Monocyte-derived Macrophage",]
@@ -154,6 +154,5 @@ sigma = apply(matrixHM, 1, sd)
 matrixZ = (matrixHM - mu)/sigma
 colnames(matrixZ) = c$patient
 
-hm = pheatmap(matrixZ, cluster_rows = FALSE, cluster_cols=FALSE, show_rownames=FALSE, filename = "heatmap.png")
-save(hm, file = "heatmap.png")
+hm = pheatmap(matrixZ, cluster_rows = FALSE, cluster_cols=FALSE, show_rownames=FALSE)
 ```

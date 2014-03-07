@@ -43,5 +43,5 @@ library(data.table)
 gseDT <- data.table(dbGetQuery(geo_con, "SELECT * FROM gse"), key = "gse")
 gse_gplDT <- data.table(dbGetQuery(geo_con, "SELECT * FROM gse_gpl;", key = "gse"))
 gplDT <- data.table(dbGetQuery(geo_con, "SELECT * FROM gpl;"), key = "gpl")
-merge(data.table((gseDT[gse_gplDT])[title %like% "HCV" & contact %like% "yale", list(title, gse, gpl)], key = "gpl"), data.table((gplDT[manufacturer %like% "Illumina", list(gpl, manufacturer, description)]), key = "gpl"), all = FALSE)
+merge(data.table((gseDT[gse_gplDT])[title %like% "HCV" & contact %like% "yale", list(title, gse, gpl)], key = "gpl"), data.table((gplDT[manufacturer %like% "Illumina", list(gpl, manufacturer, description)])), all = FALSE)
 ```
