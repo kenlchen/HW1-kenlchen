@@ -21,7 +21,7 @@ Display your results using [pheatmap](http://cran.r-project.org/web/packages/phe
 # Set some global knitr options
 library("knitr")
 opts_chunk$set(tidy=FALSE, cache=TRUE, messages=FALSE, 
-               fig.width=8, fig.height=10)
+               fig.width=7, fig.height=7)
 ```
 
 ### Install packages
@@ -41,73 +41,6 @@ for (pkg in packages)
 {
     require(pkg, character.only = TRUE, quietly = TRUE) || biocLite(pkg) 
 }
-```
-
-```
-## Loading required package: BiocGenerics
-## Loading required package: parallel
-## 
-## Attaching package: 'BiocGenerics'
-## 
-## The following objects are masked from 'package:parallel':
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-##     parLapplyLB, parRapply, parSapply, parSapplyLB
-## 
-## The following object is masked from 'package:stats':
-## 
-##     xtabs
-## 
-## The following objects are masked from 'package:base':
-## 
-##     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
-##     as.data.frame, as.vector, cbind, colnames, do.call,
-##     duplicated, eval, evalq, get, intersect, is.unsorted, lapply,
-##     mapply, match, mget, order, paste, pmax, pmax.int, pmin,
-##     pmin.int, rank, rbind, rep.int, rownames, sapply, setdiff,
-##     sort, table, tapply, union, unique, unlist, unsplit
-## 
-## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     'browseVignettes()'. To cite Bioconductor, see
-##     'citation("Biobase")', and for packages 'citation("pkgname")'.
-## 
-## Setting options('download.file.method.GEOquery'='curl')
-## 
-## Attaching package: 'limma'
-## 
-## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA
-## 
-## Loading required package: AnnotationDbi
-## Loading required package: stats4
-## Loading required package: GenomeInfoDb
-## Loading required package: S4Vectors
-## Loading required package: IRanges
-## 
-## Attaching package: 'AnnotationDbi'
-## 
-## The following object is masked from 'package:GenomeInfoDb':
-## 
-##     species
-## 
-## Loading required package: XML
-## 
-## Attaching package: 'annotate'
-## 
-## The following object is masked from 'package:GenomeInfoDb':
-## 
-##     organism
-## 
-## 
-## Attaching package: 'graph'
-## 
-## The following object is masked from 'package:XML':
-## 
-##     addNode
 ```
 
 ### Load packages
@@ -146,7 +79,7 @@ if (file.exists(datafile)) {
 
 ```
 ## File stored at: 
-## /tmp/RtmpmCoyLJ/GPL10999.soft
+## /tmp/Rtmpu8FSES/GPL10999.soft
 ```
 
 ```r

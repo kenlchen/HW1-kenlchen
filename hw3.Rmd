@@ -25,7 +25,7 @@ Display your results using [pheatmap](http://cran.r-project.org/web/packages/phe
 # Set some global knitr options
 library("knitr")
 opts_chunk$set(tidy=FALSE, cache=TRUE, messages=FALSE, 
-               fig.width=8, fig.height=10)
+               fig.width=7, fig.height=7)
 ```
 
 ### Install packages
