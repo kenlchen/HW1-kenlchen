@@ -43,6 +43,73 @@ for (pkg in packages)
 }
 ```
 
+```
+## Loading required package: BiocGenerics
+## Loading required package: parallel
+## 
+## Attaching package: 'BiocGenerics'
+## 
+## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB
+## 
+## The following object is masked from 'package:stats':
+## 
+##     xtabs
+## 
+## The following objects are masked from 'package:base':
+## 
+##     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+##     as.data.frame, as.vector, cbind, colnames, do.call,
+##     duplicated, eval, evalq, get, intersect, is.unsorted, lapply,
+##     mapply, match, mget, order, paste, pmax, pmax.int, pmin,
+##     pmin.int, rank, rbind, rep.int, rownames, sapply, setdiff,
+##     sort, table, tapply, union, unique, unlist, unsplit
+## 
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+## 
+## Setting options('download.file.method.GEOquery'='curl')
+## 
+## Attaching package: 'limma'
+## 
+## The following object is masked from 'package:BiocGenerics':
+## 
+##     plotMA
+## 
+## Loading required package: AnnotationDbi
+## Loading required package: stats4
+## Loading required package: GenomeInfoDb
+## Loading required package: S4Vectors
+## Loading required package: IRanges
+## 
+## Attaching package: 'AnnotationDbi'
+## 
+## The following object is masked from 'package:GenomeInfoDb':
+## 
+##     species
+## 
+## Loading required package: XML
+## 
+## Attaching package: 'annotate'
+## 
+## The following object is masked from 'package:GenomeInfoDb':
+## 
+##     organism
+## 
+## 
+## Attaching package: 'graph'
+## 
+## The following object is masked from 'package:XML':
+## 
+##     addNode
+```
+
 ### Load packages
 
 
@@ -78,11 +145,8 @@ if (file.exists(datafile)) {
 ```
 
 ```
-## ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE45nnn/GSE45735/matrix/
-## Found 1 file(s)
-## GSE45735_series_matrix.txt.gz
 ## File stored at: 
-## ./Data/GEO//GPL10999.soft
+## /tmp/RtmpmCoyLJ/GPL10999.soft
 ```
 
 ```r
@@ -90,13 +154,7 @@ if (file.exists(datafile)) {
 if (length(list.files(datadir, pattern="_pbmc.txt.gz"))==0) {
     getGEOSuppFiles(accession, makeDirectory = FALSE, baseDir = datadir)
 }
-```
 
-```
-## ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE45nnn/GSE45735/suppl/
-```
-
-```r
 pd <- pData(gd)
 ```
 
@@ -235,14 +293,14 @@ pheatmap(as.matrix(diffGenes2), cluster_cols = FALSE)
 
 ### Convert gene sets to gene indices
 
-This is from the [lecture](https://github.com/raphg/Biostat-578/blob/master/GSEA.md) slides.
+This is from the [lecture](https://github.com/raphg/Biostat-578/blob/master/GSEA.md) slides. However, the gene set has been changed to the Reactome pathway.
 
-The C2 symbols GMT file can be downloaded from [GSEA](http://www.broadinstitute.org/gsea/msigdb/collections.jsp), [free registration](http://www.broadinstitute.org/gsea/register.jsp) required.
+The symbols GMT file can be downloaded from [GSEA](http://www.broadinstitute.org/gsea/msigdb/collections.jsp), [free registration](http://www.broadinstitute.org/gsea/register.jsp) required.
 
 
 ```r
 ## convert gene sets to gene indices
-c2_set <- getGmt("./GSEA-sets/c2.all.v4.0.symbols.gmt")
+c2_set <- getGmt("./GSEA-sets/c2.cp.reactome.v4.0.symbols.gmt")
 gene_ids <- geneIds(c2_set)
 ```
 

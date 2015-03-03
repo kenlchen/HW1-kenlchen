@@ -206,13 +206,13 @@ pheatmap(as.matrix(diffGenes2), cluster_cols = FALSE)
 
 ### Convert gene sets to gene indices
 
-This is from the [lecture](https://github.com/raphg/Biostat-578/blob/master/GSEA.md) slides.
+This is from the [lecture](https://github.com/raphg/Biostat-578/blob/master/GSEA.md) slides. However, the gene set has been changed to the Reactome pathway.
 
-The C2 symbols GMT file can be downloaded from [GSEA](http://www.broadinstitute.org/gsea/msigdb/collections.jsp), [free registration](http://www.broadinstitute.org/gsea/register.jsp) required.
+The symbols GMT file can be downloaded from [GSEA](http://www.broadinstitute.org/gsea/msigdb/collections.jsp), [free registration](http://www.broadinstitute.org/gsea/register.jsp) required.
 
 ```{r}
 ## convert gene sets to gene indices
-c2_set <- getGmt("./GSEA-sets/c2.all.v4.0.symbols.gmt")
+c2_set <- getGmt("./GSEA-sets/c2.cp.reactome.v4.0.symbols.gmt")
 gene_ids <- geneIds(c2_set)
 ```
 
